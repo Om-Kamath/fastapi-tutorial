@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dim"> 
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Use a CDN or local path for your CSS file -->
+    <link rel="stylesheet" href="{{url_for('static',path='css/app.css')}}">
+    <title>Chunker</title>
+</head>
+
+<body class="flex flex-col items-center justify-center min-h-screen">
+    <div class="max-w-md p-8 mx-auto mb-8 rounded-md shadow-md bg-neutral">
+        <form id="query-form" method="post" action="/neighbours/" class="flex flex-col mb-6">
+            <div class="mb-4">
+                <input type="text" placeholder="Query" id="query" name="query" required
+                    class="input input-ghost w-full max-w-xs" />
+            </div>
+            <div class="mb-4">
+                <input type="range" min="1" max="5" value="3" class="range" step="1" name="neighbours" id="neighbours" />
+                <div class="w-full flex justify-between text-xs px-2">
+                    <span>|</span>
+                    <span>|</span>
+                    <span>|</span>
+                    <span>|</span>
+                    <span>|</span>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-accent">Submit</button>
+        </form>
+    </div>
+
+    <!-- Nearest neighbours -->
+    <div class="max-w-md mx-auto">
+        <!-- Check if results exist -->
+        {% if not results %}
+        <h2 class="text-lg font-semibold mb-2 text-info">No Results Found</h2>
+        {% endif %}
+        {% if results %}
+        <h2 class="text-lg font-semibold mb-2 text-info">Nearest Neighbours</h2>
+        <div id="results">
+            <!-- Nearest neighbours will be displayed here -->
+            {% for result in results %}
+            <div class="collapse bg-base-200 mb-4">
+                <input type="checkbox" />
+                <div class="collapse-title text-xl font-medium text-primary">
+                    <p>{{ result.page_content[:25]|safe }}...</p>
+                </div>
+                <div class="collapse-content">
+                    <p>{{ result.page_content }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>
