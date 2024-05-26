@@ -9,7 +9,14 @@
     <title>Chunker</title>
 </head>
 
-<body class="flex flex-col items-center justify-center min-h-screen">
+<body class="flex flex-col items-center justify-center min-h-screen px-2">
+    <form id="upload-form" method="post" action="/upload/" class="flex flex-col mb-6" enctype="multipart/form-data">
+        <div class="mb-4 ">
+            <input type="file" id="myFile" name="file" accept="application/pdf">
+            <button type="submit" class="btn btn-sm btn-circle btn-outline">+</button>
+        </div>
+        <p class="text-slate-500">{{message}}</p>
+    </form>
     <div class="max-w-md p-8 mx-auto mb-8 rounded-md shadow-md bg-neutral">
         <form id="query-form" method="post" action="/neighbours/" class="flex flex-col mb-6">
             <div class="mb-4">

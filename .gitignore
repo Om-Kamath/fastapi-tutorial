@@ -1,3 +1,5 @@
 node_modules
 fastapi
 app/chroma_db
+app/__pycache__
+app/fastapi-c578e-firebase-adminsdk-dg77k-0454ae4afb.json

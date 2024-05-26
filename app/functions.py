@@ -11,9 +11,9 @@ import os
 warnings.filterwarnings('ignore')
 
 
-def create_db():
+def create_db(file_URL:str):
 
-    loader = PyPDFLoader("./files/samples.pdf")
+    loader = PyPDFLoader(file_path=file_URL)
     pages = loader.load()
 
 
@@ -28,15 +28,16 @@ def create_db():
     embedding_function = SentenceTransformerEmbeddings(model_name="all-MiniLM-L6-v2")
 
     # Create the Chroma database with IDs
-    Chroma.from_documents(pages, embedding_function, persist_directory="./chroma_db", ids=ids)
+    Chroma.from_documents(pages, embedding_function, persist_directory="app/chroma_db", ids=ids)
 
 
 def delete_persisted_db():
-    if "chroma_db" in os.listdir():
-        shutil.rmtree("chroma_db")
+    db_path = "app/chroma_db"
+    if os.path.exists(db_path):
+        shutil.rmtree("app/chroma_db")
         print(f"Deleted database and its contents.")
     else:
-        raise FileNotFoundError("Database not found.")
+        print(f"Database does not exist.")
 
 
 
